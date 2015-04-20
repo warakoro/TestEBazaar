@@ -273,11 +273,11 @@ public class DbQueries {
 	public static String[] saveCustomerSql() {
 		String[] vals = new String[3];
 		
-		String name = "testAddress";
+		String address = "testAddress";
 		vals[0] =
-				"INSERT INTO Customer VALUES (NULL,NULL, NULL,NULL,NULL,NULL,NULL,  NULL,   NULL,    NULL, NULL, NULL, '" + name+"', NULL, NULL , NULL, NULL ,NULL ,NULL ,NULL, NULL )";	  
+				"INSERT INTO Customer VALUES (NULL,NULL, NULL,NULL,NULL,NULL,NULL,  NULL,   NULL,    NULL, NULL, NULL, '" + address+"', NULL, NULL , NULL, NULL ,NULL ,NULL ,NULL, NULL )";	  
 		vals[1] = null;
-		vals[2] = name;
+		vals[2] = address;
 		return vals;
 	}
 	public static String deleteProductSql(Integer prodId) {
