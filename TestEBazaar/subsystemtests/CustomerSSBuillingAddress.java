@@ -1,4 +1,4 @@
-package integrationtests;
+package subsystemtests;
 
 import java.util.logging.Logger;
 
@@ -11,11 +11,11 @@ import business.externalinterfaces.Address;
 import business.externalinterfaces.CustomerSubsystem;
 import dbsetup.DbQueries;
 
-public class BuillingAddressTest extends TestCase{
+public class CustomerSSBuillingAddress extends TestCase{
 	
 
 	static String name = "Test Save address CustomerProfile";
-	static Logger log = Logger.getLogger(BuillingAddressTest.class.getName());
+	static Logger log = Logger.getLogger(CustomerSSBuillingAddress.class.getName());
 	
 	static {
 		AllTests.initializeProperties();

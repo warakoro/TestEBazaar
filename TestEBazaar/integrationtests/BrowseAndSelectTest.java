@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import junit.framework.TestCase;
-import middleware.exceptions.DatabaseException;
 import alltests.AllTests;
 import business.exceptions.BackendException;
 import business.externalinterfaces.ProductSubsystem;
