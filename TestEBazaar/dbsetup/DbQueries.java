@@ -327,7 +327,7 @@ public class DbQueries {
 	}
 	
 	public static String readSavedShoppingCart(){
-		return "SELECT * from shopcarttbl WHERE custid= 5";
+		return "SELECT * from shopcarttbl WHERE custid= 1";
 	}
 	
 }
