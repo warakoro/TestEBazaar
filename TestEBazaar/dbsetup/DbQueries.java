@@ -234,6 +234,26 @@ public class DbQueries {
 	}
 	
 	
+	
+	public static int readIdShoppingCart(){
+		String query = readSavedShoppingCart();
+		int id = 0;
+		try {
+			stmt = acctCon.createStatement();
+			ResultSet rs = stmt.executeQuery(query); 
+                if(rs.next()) {
+                 id = rs.getInt("shopcartid");   
+                }  
+                stmt.close(); 
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return id;
+	}
+	
+	
 	///queries
 	public static String readAddressesSql() {
 		return "SELECT * from altaddress WHERE custid = 1";
@@ -304,6 +324,10 @@ public class DbQueries {
 	}
 	public static String deleteAddressSql(int custId) {
 		return "DELETE FROM Customer WHERE custid = "+custId;
+	}
+	
+	public static String readSavedShoppingCart(){
+		return "SELECT * from shopcarttbl WHERE custid= 5";
 	}
 	
 }
