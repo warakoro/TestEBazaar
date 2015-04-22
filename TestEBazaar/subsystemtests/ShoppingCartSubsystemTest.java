@@ -25,9 +25,10 @@ public class ShoppingCartSubsystemTest extends TestCase {
 	
 	public void testRetrieveSavedCart(){
 		int idExpected = DbQueries.readIdShoppingCart();
+		
 		ShoppingCartSubsystem scs = ShoppingCartSubsystemFacade.INSTANCE;
 		CustomerSubsystem css = new CustomerSubsystemFacade();
-		scs.setCustomerProfile(css.getCustomerProfile());
+		scs.setCustomerProfile(css.getGenericCustomerProfile());
 
 		try {
 			scs.retrieveSavedCart();
