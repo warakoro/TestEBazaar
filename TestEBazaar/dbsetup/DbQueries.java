@@ -5,8 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+
+
 
 
 
@@ -21,7 +25,9 @@ import business.externalinterfaces.Address;
 import business.externalinterfaces.CustomerProfile;
 import business.externalinterfaces.Order;
 import business.externalinterfaces.OrderItem;
+import business.externalinterfaces.Product;
 import business.ordersubsystem.OrderSubsystemFacade;
+import business.productsubsystem.ProductImpl;
 import middleware.DbConfigProperties;import middleware.externalinterfaces.DbConfigKey;
 import alltests.*;
 public class DbQueries {
@@ -96,6 +102,28 @@ public class DbQueries {
 			e.printStackTrace();
 		}
 		return vals;
+	}
+	
+	public static List<Integer> readProductIds() {
+		
+		List<Integer> prodIds = new ArrayList<Integer>();
+		String query = "SELECT * FROM PRODUCT";
+		try {
+			stmt = prodCon.createStatement();			
+			ResultSet rs = stmt.executeQuery(query);
+			Product prod;
+			
+			while(rs.next()) {
+				
+				int prodId = Integer.parseInt(rs.getString("productid"));
+				prodIds.add(prodId);
+			}
+			stmt.close();			
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return prodIds;
 	}
 	
 	/**
@@ -370,5 +398,6 @@ public class DbQueries {
 	public static String readSavedShoppingCart(){
 		return "SELECT * from shopcarttbl WHERE custid= 1";
 	}
+	
 	
 }
