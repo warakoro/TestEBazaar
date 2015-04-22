@@ -11,9 +11,17 @@ import java.util.List;
 
 
 
+
+
+
+
 import business.customersubsystem.CustomerSubsystemFacade;
+import business.exceptions.BackendException;
 import business.externalinterfaces.Address;
 import business.externalinterfaces.CustomerProfile;
+import business.externalinterfaces.Order;
+import business.externalinterfaces.OrderItem;
+import business.ordersubsystem.OrderSubsystemFacade;
 import middleware.DbConfigProperties;import middleware.externalinterfaces.DbConfigKey;
 import alltests.*;
 public class DbQueries {
@@ -96,6 +104,7 @@ public class DbQueries {
 	 * 1 - catalog id
 	 * 2 - catalog name
 	 */
+	
 	public static List<Address> readCustAddresses() {
 		String query = readAddressesSql();
 		List<Address> addressList = new LinkedList<Address>();
@@ -150,7 +159,36 @@ public class DbQueries {
 		return cust;
 	}
 	
+	//for testing read orders
 	
+	public static List<OrderItem> readOrderItem() {
+		String query = readOrderItemsSql();
+
+		List<OrderItem> orderItems = new LinkedList<OrderItem>();
+		try {
+			stmt = acctCon.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+                    String prodId = rs.getString("productid");
+                    String orderId = rs.getString("orderid");
+                    String quantityReq = rs.getString("quantity");        
+                    String totalPrice = rs.getString("totalPrice");           
+                     try {
+						OrderItem ord = OrderSubsystemFacade.createOrderItem(Integer.parseInt(prodId), Integer.parseInt(orderId), Integer.parseInt(quantityReq), Double.parseDouble(totalPrice));
+					    orderItems.add(ord);
+                     } catch (NumberFormatException | BackendException e) {
+						e.printStackTrace();
+					}
+                   
+                }  
+                stmt.close();        
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return orderItems;
+	}
 	
 	/**
 	 * Returns a String[] with values:
@@ -265,7 +303,10 @@ public class DbQueries {
                 "FROM Customer "+
                 "WHERE custid = 1";
 		}
-	
+
+		public static String readOrderItemsSql() {
+					return "SELECT * FROM OrderItem WHERE orderid =  1";
+				}
 	public static String[] saveCatalogSql() {
 		String[] vals = new String[3];
 		
