@@ -20,7 +20,6 @@ public class DbClassCustomerProfileTest extends TestCase{
 		AllTests.initializeProperties();
 	}
 	
-	
 	public void testReadCustomerProfile() {
 		CustomerProfile expected = DbQueries.readCustProfile();
 		

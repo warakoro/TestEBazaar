@@ -8,26 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-
-
-
-
-
-
-
-
-
-
 import business.customersubsystem.CustomerSubsystemFacade;
 import business.exceptions.BackendException;
 import business.externalinterfaces.Address;
 import business.externalinterfaces.CustomerProfile;
-import business.externalinterfaces.Order;
 import business.externalinterfaces.OrderItem;
-import business.externalinterfaces.Product;
 import business.ordersubsystem.OrderSubsystemFacade;
-import business.productsubsystem.ProductImpl;
 import middleware.DbConfigProperties;import middleware.externalinterfaces.DbConfigKey;
 import alltests.*;
 public class DbQueries {
@@ -111,8 +97,6 @@ public class DbQueries {
 		try {
 			stmt = prodCon.createStatement();			
 			ResultSet rs = stmt.executeQuery(query);
-			Product prod;
-			
 			while(rs.next()) {
 				
 				int prodId = Integer.parseInt(rs.getString("productid"));
@@ -125,6 +109,28 @@ public class DbQueries {
 		}
 		return prodIds;
 	}
+	
+	public static List<Integer> readOrderHistory(){
+        String query = getAllOrders();
+        List<Integer> orders = new LinkedList<Integer>();;
+        try {
+            stmt = acctCon.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                    int orderId = rs.getInt("orderid");
+                    orders.add(orderId);
+                }  
+                stmt.close();      
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return orders;
+    }
+	public static String getAllOrders(){
+        return "SELECT * from ord WHERE custid= 1";
+    }
 	
 	/**
 	 * Returns a String[] with values:
